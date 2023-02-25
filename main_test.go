@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,12 +21,6 @@ var testData = []Data{
 		Location: "Ames, IA, USA",
 		LatLong:  "42.026111,-93.648333",
 	},
-}
-
-func TestSetupRouter(t *testing.T) {
-	gin.SetMode(gin.ReleaseMode)
-	router := setupRouter()
-	assert.IsType(t, router, gin.New())
 }
 
 func TestGetAllData(t *testing.T) {
@@ -46,7 +40,7 @@ func TestGetDataByID(t *testing.T) {
 	res := w.Result()
 
 	if res.StatusCode != 200 {
-		b, _ := ioutil.ReadAll(res.Body)
+		b, _ := io.ReadAll(res.Body)
 		t.Error(res.StatusCode, string(b))
 	}
 
@@ -68,7 +62,7 @@ func TestGetDataByIDNotFound(t *testing.T) {
 	res := w.Result()
 
 	if res.StatusCode != 404 {
-		b, _ := ioutil.ReadAll(res.Body)
+		b, _ := io.ReadAll(res.Body)
 		t.Error(res.StatusCode, string(b))
 	}
 

@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
+
 	"github.com/gin-gonic/gin"
 )
 
