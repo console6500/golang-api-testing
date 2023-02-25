@@ -3,6 +3,9 @@
 
 name: Go
 
+env:
+  GIN_MODE: release
+  
 on:
   push:
     branches: [ "main" ]
