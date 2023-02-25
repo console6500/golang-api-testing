@@ -18,13 +18,7 @@ type Data struct {
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	r, err := setupRouter()
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-
+	r := setupRouter()
 	r.Run(":3000")
 }
 
