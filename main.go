@@ -2,8 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"io"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
