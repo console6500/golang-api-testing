@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"io"
 	"fmt"
+	"io/ioutil"
 	"os"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,10 +21,12 @@ type Data struct {
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 	r := setupRouter()
-	    if err := r.Run(":3000"); err != nil {
+	r.Run(":3000")
+
+	if err := r.Run(":3000"); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
-	    }
+	}
 }
 
 func setupRouter() *gin.Engine {
@@ -38,7 +41,7 @@ func setupRouter() *gin.Engine {
 func getAllData(c *gin.Context) {
 	var data []Data
 
-	file, err := io.ReadFile("data.json")
+	file, err := ioutil.ReadFile("data.json")
 
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Could not read data file"})
@@ -60,7 +63,7 @@ func getDataByID(c *gin.Context) {
 
 	guid := c.Param("guid")
 
-	file, err := io.ReadFile("data.json")
+	file, err := ioutil.ReadFile("data.json")
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Could not read data file"})
 		return
