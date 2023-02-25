@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
-
+	"io"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +18,13 @@ type Data struct {
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
-	r := setupRouter()
+	r, err := setupRouter()
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		os.Exit(1)
+	}
+
 	r.Run(":3000")
 }
 
